@@ -26,6 +26,46 @@
         </div>
       </div>
     </div>
+    <section>
+      <div id="current-market-data">
+          <table>
+            <tr>
+              <thead>
+                <th>Image</th>
+                <th>Project</th>
+                <th>Floor Price</th>
+                <th>Volume</th>
+                <th>Assets</th>
+                <th>Mkt Cap</th>
+              </thead>
+            </tr>
+            <tr>
+              <tbody>
+                <td ><img id="pic" src="" alt=""></td>
+                <td id="project"></td>
+                <td id="floor"></td>
+                <td id="volume"></td>
+                <td id="assets"></td>
+                <td id="mkt-cap"></td>
+              </tbody>
+            </tr>
+          </table>
+      </div>
+      <div id="set-notify">
+        <select name="range" id="rangeNotify">
+          <option value="Above">Above</option>
+          <option value="Below">Below</option>
+        </select>
+        <input required type="number" placeholder='Set Price' id="price">
+        <button id="add">Add Notification</button>
+      </div>
+      <div id="remove-notify">
+        <h3>Remove Notification</h3>
+        <div id="remove-buttons">
+
+        </div>
+      </div>
+    </section>
 
     <script type="module" src="app.js"></script>
   </body>

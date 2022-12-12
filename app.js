@@ -1,11 +1,50 @@
 const dropdownListContainer = document.querySelector(
   "#dropdown-list-container"
 );
-
+const add = document.querySelector("#add");
+const price = document.querySelector("#price");
+const rangeNotify = document.querySelector("#rangeNotify");
 const dropdownList = document.querySelector("#dropdown-list");
 const projectContainer = document.querySelector("#project-container");
 const arrow = document.querySelector("#arrow");
+const projectName = document.querySelector("#project");
+const pic = document.querySelector("#pic");
+const floorP = document.querySelector("#floor");
+const volume = document.querySelector("#volume");
+const assets = document.querySelector("#assets");
+const marketCap = document.querySelector("#mkt-cap");
+const removeButtons = document.querySelector("#remove-buttons");
 let listBoolean;
+let countID = 0;
+const notificationArray = [];
+
+add.addEventListener("click", function () {
+  const arr = [];
+  arr.push(projectContainer.childNodes[2].childNodes[1].innerText);
+  arr.push(projectContainer.childNodes[2].childNodes[1].id);
+  arr.push(rangeNotify.value);
+  arr.push(price.value);
+  notificationArray.push(arr);
+  const button = document.createElement("button");
+  button.id = `button${countID}`;
+  button.textContent = `${projectContainer.childNodes[2].childNodes[1].innerText}`;
+  button.classList.add("remove-button");
+  removeButtons.append(button);
+  console.log(notificationArray);
+  button.addEventListener("click", function (e) {
+    notificationArray.splice(
+      notificationArray.findIndex((x) =>
+        x[0] === e.target.innerText
+          ? notificationArray.indexOf(e.target.innerText)
+          : console.log("false")
+      ),
+      1
+    );
+    e.target.style.display = "none";
+  });
+  price.value = "";
+  countID += 1;
+});
 
 class NFTprops {
   constructor(
@@ -35,6 +74,7 @@ class NFTprops {
     this.label.classList.add("label");
     this.input.name = "nft";
     this.input.type = "radio";
+    this.label.id = this.policyID;
     this.label.textContent = this.project;
     this.input.id = `input${this.id}`;
     this.label.htmlFor = this.input.id;
@@ -57,21 +97,25 @@ class NFTprops {
     this.placeholder.append(this.input);
     dropdownList.append(this.placeholder);
     this.input.addEventListener("click", function () {
-      console.log(listBoolean)
-      console.log(projectContainer.children[0].remove())
-    
+      projectContainer.children[0].remove();
+      console.log(this.parentNode.childNodes[1].id);
+      HandlerDropdown.collectCNFT(
+        this.parentNode.childNodes[1].id,
+        this.parentNode.childNodes[1].textContent
+      );
       listBoolean = true;
-      dropdownList.style.display = 'none';
-      dropdownListContainer.style.display = 'none';
-      this.parentNode.style.backgroundColor = 'blue';
-      this.parentNode.style.color = 'white';
-      this.parentNode.style.borderRadius = '25px';
-      this.parentNode.childNodes[0].style.borderRadius = '25px'
-      console.log(this.parentNode)
+      dropdownList.style.display = "none";
+      dropdownListContainer.style.display = "none";
+      this.parentNode.style.backgroundColor = "blue";
+      this.parentNode.style.color = "white";
+      this.parentNode.style.borderRadius = "25px";
+      this.parentNode.childNodes[0].style.borderRadius = "25px";
+      console.log(this.parentNode);
       arrow.insertAdjacentElement("beforebegin", this.parentNode);
       HandlerDropdown.removeList();
     });
   }
+  handleEvent() {}
 }
 
 const adaDiggies1 = new NFTprops(
@@ -704,6 +748,7 @@ class HandlerDropdown {
       i.formInput();
       i.formIcon();
       i.formPlaceholder();
+      i.handleEvent();
     }
     HandlerDropdown.displayList();
   }
@@ -718,91 +763,116 @@ class HandlerDropdown {
     return cnftArray.sort((x, y) => (x.project > y.project ? 1 : -1));
   }
   static displayList() {
-    dropdownListContainer.style.display = 'flex';
+    dropdownListContainer.style.display = "flex";
     dropdownList.style.display = "flex";
     console.log(listBoolean);
     if (listBoolean === false) {
       listBoolean = true;
       dropdownList.style.display = "none";
-      dropdownListContainer.style.display = 'none'
+      dropdownListContainer.style.display = "none";
       console.log(listBoolean);
       return;
     }
-     listBoolean = false
-     console.log(listBoolean)
+    listBoolean = false;
+    console.log(listBoolean);
   }
-}
 
-let floor;
-async function collectCNFT(policyID, name) {
-  const config = { headers: { Accept: "application/json" } };
+  static async collectCNFT(policyID, name, comparison, requestedPrice) {
+    console.log(policyID, name, comparison, requestedPrice);
+    const config = { headers: { Accept: "application/json" } };
+    console.log(name);
+    const params = {
+      policy: policyID,
+    };
+    const res = await axios.get(
+      `https://api.opencnft.io/1/policy/${encodeURIComponent(params.policy)}`,
+      config
+    );
+    const project = name;
+    const picture = res.data.thumbnail;
+    const totalVolume = (res.data.total_volume /= Math.pow(10, 6));
+    const assetsMinted = res.data.asset_minted;
+    const floorPrice = (res.data.floor_price /= Math.pow(10, 6));
 
-  const params = {
-    policy: policyID,
-  };
-  const res = await axios.get(
-    `https://api.opencnft.io/1/policy/${encodeURIComponent(params.policy)}`,
-    config
-  );
-  const project = name;
-  const picture = res.data.thumbnail;
-  const totalVolume = res.data.total_volume;
-  const assetsMinted = res.data.asset_minted;
-  const floorPrice = res.data.floor_price;
+    const object = {
+      project: project,
+      image: picture,
+      volume: `${totalVolume.toLocaleString()} ADA `,
+      assets: assetsMinted,
+      floor: `${floorPrice.toLocaleString()} ADA`,
+      mktCap: `${(assetsMinted * floorPrice).toLocaleString()} ADA`,
+    };
 
-  const object = {
-    project: project,
-    image: picture,
-    volume: totalVolume.toFixed(2),
-    assets: assetsMinted,
-    floor: floorPrice.toFixed(2),
-    mktCap: assetsMinted * floorPrice,
-  };
+    pic.src = picture;
+    volume.textContent = object.volume;
+    marketCap.textContent = object.mktCap;
+    assets.textContent = object.assets;
+    projectName.textContent = name;
+    floorP.textContent = object.floor;
 
-  console.log(object);
-  const showNotification = () => {
-    const greeting = new Notification("Hi KingEdward", {
-      body: `${object.project} has reached a floor price of ${object.floor}`,
-    });
-    setTimeout(() => {
-      greeting.close();
-      console.log("hi");
-    }, 10 * 1000);
-    greeting.addEventListener("click", () => {
-      window.open(
-        "https://www.javascripttutorial.net/web-apis/javascript-notification/",
-        "_blank"
-      );
-      console.log("hi");
-    });
-    console.log("greeting");
-  };
-  const error = () => {
-    const cool = document.querySelector(".error");
-    cool.style.display = "block";
-    cool.textContent = "You blocked";
-    console.log("ero");
-  };
+    const showNotification = () => {
+      const greeting = new Notification("Hi KingEdward", {
+        body: `${object.project} has reached a floor price of ${object.floor}`,
+      });
+      setTimeout(() => {
+        greeting.close();
+        console.log("hi");
+      }, 10 * 1000);
+      greeting.addEventListener("click", () => {
+        window.open(
+          "https://www.javascripttutorial.net/web-apis/javascript-notification/",
+          "_blank"
+        );
+        console.log("hi");
+      });
+      console.log("greeting");
+    };
+    const error = () => {
+      const cool = document.querySelector(".error");
+      cool.style.display = "block";
+      cool.textContent = "You blocked";
+      console.log("ero");
+    };
 
-  let granted = false;
+    let granted = false;
 
-  if (Notification.permission === "granted" && object.floor > 300) {
-    console.log("wor");
-    console.log(object.floor);
-    showNotification();
-  } else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then((res) => {
-      if (res === "granted") {
-        showNotification();
+    function formComparison(comparison) {
+      if (comparison === "Above") {
+        return floorPrice > requestedPrice;
+      } else {
+        return floorPrice < requestedPrice;
       }
-    });
+    }
 
-    granted ? showNotification() : error();
+    if (Notification.permission === "granted" && formComparison(comparison)) {
+      showNotification();
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((res) => {
+        if (res === "granted") {
+          showNotification();
+        }
+      });
+
+      granted ? showNotification() : error();
+    }
   }
 }
 
-collectCNFT(
-  "33568ad11f93b3e79ae8dee5ad928ded72adcea719e92108caf1521b",
-  "Wild Tangz"
-);
+class RemoveNotification {
+  static appendRemove() {
+    for (let i of notificationArray) {
+    }
+  }
+}
+
+class HandleNotification {
+  static loopNotificationArray() {
+    for (let i of notificationArray) {
+      HandlerDropdown.collectCNFT(i[1], i[0], i[2], i[3]);
+    }
+  }
+
+  static callNotification() {}
+}
+
 arrow.addEventListener("click", HandlerDropdown.formDropdownList);

@@ -1,107 +1,159 @@
-#dropdown-container{
-    display: flex;
-    height: cover;
-    justify-content: space-between;
-    width: 40%;
-    flex-direction: column;
-    margin: auto;
+#dropdown-container {
+  display: flex;
+  height: cover;
+  justify-content: space-between;
+  width: 40%;
+  flex-direction: column;
+  margin: auto;
 }
 
-.placeholder-container{
-    display: flex;
-    align-items: center;
-    color: white;
-    margin: auto;
-    background-color: rgb(19, 66, 255);
-    cursor: pointer;
-    width: 100%;
+.placeholder-container {
+  display: flex;
+  align-items: center;
+  color: white;
+  margin: auto;
+  background-color: rgb(19, 66, 255);
+  cursor: pointer;
+  width: 100%;
 }
 
-.placeholder-container:hover{
-    background-color: blue;
-    color: white;
+.placeholder-container:hover {
+  background-color: blue;
+  color: white;
 }
 
-#arrow{
-    margin-top: 10px;
-    height: 30px;
-    margin: auto;
-    display: flex;
+#arrow {
+  margin-top: 10px;
+  height: 30px;
+  margin: auto;
+  display: flex;
+  border: 2px solid black;
+  padding: 5px;
+  background-color: yellow;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#arrow:hover {
+  background-color: white;
+}
+
+.nft-icon {
+  height: 50px;
+  border: 2px solid black;
+  margin: 0;
+}
+
+.nft-project {
+  display: none;
+  border: 2px solid black;
+}
+
+#project-container {
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin: auto;
+  border-radius: 25px;
+  background-color: blue;
+  border: 2px solid black;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 500;
+  margin: auto;
+  text-align: left;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+}
+
+#dropdown-list {
+  width: 100%;
+  height: 300px;
+  margin: auto;
+  display: none;
+  flex-direction: column;
+  overflow-y: scroll;
+
+  border-radius: 0px;
+}
+
+#dropdown-list-container {
+  width: 39%;
+  height: 300px;
+  margin: auto;
+  margin-top: 60px;
+  display: none;
+  position: absolute;
+  z-index: 3;
+  border-radius: 25px;
+  border: 2px solid black;
+  overflow-y: hidden;
+  box-shadow: 4px 4px 5px black;
+}
+
+.initial-container {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  cursor: pointer;
+  width: 100%;
+}
+
+h4 {
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-left: 15px;
+}
+
+#current-market-data {
+  position: relative;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  width: 80%;
+  margin-top: 80px;
+}
+
+table{
     border: 2px solid black;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 5px;
-    background-color: yellow;
-    border-radius: 30px;
-    cursor: pointer;
-}
-
-#arrow:hover{
-    background-color: white;
-}
-
-.nft-icon{
-    height: 50px;
-    border: 2px solid black;
-    margin: 0;
-}
-
-.nft-project{
-    display: none;
-    border: 2px solid black;
-}
-
-#project-container{
-    flex-direction: row;
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: center;
-    margin: auto;
-    border-radius: 25px;
     background-color: blue;
-    border: 2px solid black;
+    border-radius: 15px;
 }
 
-.label{
-    font-size: 20px;
-    font-weight: 500;
-    margin: auto;
-    text-align: left;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    letter-spacing: 1.2px;
-    cursor: pointer;
+thead, tbody, td, th{
+    padding: 5px;
 }
 
-#dropdown-list{
-    width: 100%;
-    height: 300px;
-    margin: auto;
-    display: none;
-    flex-direction: column;
-    overflow-y: scroll;
-    border-radius: 25px;
-}
-
-#dropdown-list-container{
-    width: 100%;
-    height: 300px;
-    margin: auto;
-    display: none;
-    border-radius: 25px;
-    border: 2px solid black;
-    overflow-y: hidden;
-    box-shadow: 4px 4px 5px black;
-}
-
-.initial-container{
+#set-notify{
     display: flex;
-    align-items: center;
     margin: auto;
-    cursor: pointer;
-    width: 100%;
+    justify-content: center;
+    margin-top: 50px;
 }
 
-h4{
-    color: white;
+.remove-button{
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 2px 4px 5px black;
+    color: black;
+    background-color: aqua;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-left: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.remove-button:hover{
+    background-color: white;
+    color: black;
+    box-shadow: 1px 2px 2.5px black;
 }
