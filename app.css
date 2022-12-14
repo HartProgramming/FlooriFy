@@ -7,6 +7,16 @@
   margin: auto;
 }
 
+.container{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    color: blue;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .placeholder-container {
   display: flex;
   align-items: center;
@@ -116,7 +126,9 @@ h4 {
   margin: auto;
   justify-content: center;
   width: 80%;
+  border-radius: 25px;
   margin-top: 80px;
+  box-shadow: 0px 5px 5px black;
 }
 
 table{
@@ -137,6 +149,61 @@ thead, tbody, td, th{
     margin: auto;
     justify-content: center;
     margin-top: 50px;
+    border: 2px solid black;
+    height: 50px;
+    padding: 15px;
+    width: 70%;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0px 5px 5px black;
+    background-color: blue;
+}
+
+#rangeNotify{
+    width: 30%;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    font-weight: 600;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1.25px;
+    background-color: rgb(34, 173, 238);
+    box-shadow: 0px 5px 5px black;
+}
+
+#rangeNotify:hover{
+    background-color: white;
+    color: rgb(34, 173, 238);
+}
+
+#add{
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    font-weight: 600;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    box-shadow: 0px 5px 5px black;
+}
+
+#add:hover{
+    background-color: white;
+    color: green;
+}
+
+#price{
+    background-color: rgb(209, 209, 209);
+    color: black;
+    font-size: 16px;
+    border: none;
+    width: 30%;
+    font-weight: 500;
+    box-shadow: 0px 5px 5px black;
 }
 
 .remove-button{
